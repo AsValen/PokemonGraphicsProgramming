@@ -1,0 +1,48 @@
+﻿  matrix.cpp
+  vector.cpp
+  Bodyparts.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\angle_util\vector.cpp(31,30): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\angle_util\vector.cpp(153,30): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\angle_util\vector.cpp(189,30): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\angle_util\vector.cpp(333,30): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Bodyparts.cpp(33,60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  depth_visualizer.cpp
+  app.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\app.cpp(24,8): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\app.cpp(25,8): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  camera_flying.cpp
+  scenebase.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(37,14): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(38,14): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(39,27): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(40,26): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(58,14): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(59,14): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(60,21): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\framework\scenebase.cpp(61,20): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+  texture2d.cpp
+  texture_utils.cpp
+  plane_gen.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\helpers\plane_gen.cpp(102,36): warning C4267: '=': conversion from 'size_t' to 'unsigned int', possible loss of data
+  main.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\scene_proj.h(44,10): warning C4101: 'shapes': unreferenced local variable
+  (compiling source file 'main.cpp')
+  
+  Shapes.cpp
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(96,46): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(121,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(135,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(136,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(149,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(150,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(250,43): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(273,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(282,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(283,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(286,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(287,14): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Private\Sem5\Graphic Programming\Project\project\src\Shapes.cpp(366,43): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
+  Generating Code...
+  glad.c
+LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+  xbgt2064_proj.vcxproj -> D:\Private\Sem5\Graphic Programming\Project\project\debug\xbgt2064_proj.exe
