@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Framework">
+      <UniqueIdentifier>{60441cb6-36df-4dcb-9fad-8ef587e22922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\angle_util">
+      <UniqueIdentifier>{d03a36ff-5b21-4491-85de-23351c2f7b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Your Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Framework\texture">
+      <UniqueIdentifier>{03cac464-05d8-48a5-a4e9-a2fe090b6a52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{a495ace8-89e6-4f54-b609-2ec0899878bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{85108802-c40f-4b0b-b98b-5ff2c9db7681}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="angle_util\matrix.cpp">
+      <Filter>Framework\angle_util</Filter>
+    </ClCompile>
+    <ClCompile Include="angle_util\vector.cpp">
+      <Filter>Framework\angle_util</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\camera_flying.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\scenebase.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\app.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\texture\texture_utils.cpp">
+      <Filter>Framework\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\texture\texture2d.cpp">
+      <Filter>Framework\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="depth_visualizer.cpp">
+      <Filter>Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="helpers\plane_gen.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Shapes.cpp">
+      <Filter>Your Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bodyparts.cpp">
+      <Filter>Your Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="angle_util\matrix.h">
+      <Filter>Framework\angle_util</Filter>
+    </ClInclude>
+    <ClInclude Include="angle_util\vector.h">
+      <Filter>Framework\angle_util</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\camera_flying.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\scenebase.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\app.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="scene_proj.h">
+      <Filter>Your Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\texture\texture_utils.h">
+      <Filter>Framework\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\texture\texture2d.h">
+      <Filter>Framework\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="depth_visualizer.h">
+      <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="helpers\plane_gen.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Shapes.h">
+      <Filter>Your Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshValues.h">
+      <Filter>Your Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bodyparts.h">
+      <Filter>Your Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
