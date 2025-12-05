@@ -42,13 +42,21 @@ public:
 		drawWorldOriginLines();
 
 		Shapes shapes;
-		Bodyparts bodyparts;
-
+		
+		AssemblingPokemon(vpMatrix);
 		//shapes.CreateSquare(Vector3(3, 5, 0), colorValues(1.0f, 1.0f, 1.0f, 1.0f), NULL);
 		//shapes.CreateCube(Vector3(5, 5, 5), colorValues(1.0f, 1.0f, 1.0f, 1.0f));
 		//shapes.CreatePyramid(Vector3(5, 5, 5), colorValues(1.0f, 1.0f, 1.0f, 1.0f));
 		//shapes.CreateCylinder(cylinderValues(9, 5.0f, 5.0f, 5.0f, 1.0f), colorValues(1.0f, 1.0f, 1.0f, 1.0f));
-		bodyparts.CreateUpperTorso(vpMatrix);
+		
 		// --------------------------------------------
+	}
+
+	void AssemblingPokemon(const Matrix4& vpMatrix)
+	{
+		Bodyparts bodyparts;
+		bodyparts.CreateUpperTorso(vpMatrix);
+		bodyparts.CreateLowerTorso(vpMatrix);
+
 	}
 };
