@@ -3,6 +3,7 @@
 #include "angle_util/vector.h"
 #include <vector>
 #include "framework/texture/texture_utils.h"
+#include "angle_util/matrix.h"
 
 class Shapes
 {
@@ -20,4 +21,6 @@ public :
 	void CreateCylinder(const cylinderValues& cyValues, const colorValues& colValues, bool enableTopDisk = true, bool enableBottomDisk = true);
 
 	void CreatePyramid(const Vector3& diValues, const colorValues& colValues);
+
+	void CreateSphere(const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix);
 };

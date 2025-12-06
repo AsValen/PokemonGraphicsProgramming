@@ -12,9 +12,13 @@ public :
 
 	void CreateHead(const Matrix4& viewProjectionMatrix);
 
+	void CreateArm(const Matrix4& viewProjectionMatrix);
+
 	void CreateLeftArm(const Matrix4& viewProjectionMatrix);
 
 	void CreateRightArm(const Matrix4& viewProjectionMatrix);
+
+	void CreateLeg(const Matrix4& viewProjectionMatrix);
 
 	void CreateLeftLeg(const Matrix4& viewProjectionMatrix);
 

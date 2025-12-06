@@ -4,6 +4,8 @@
 #include <vector>
 #include "framework/texture/texture_utils.h"
 #include <corecrt_math_defines.h>
+#include "Cylindroid.h"
+#include "angle_util/matrix.h"
 
 void Shapes::CreateTriangle(const Vector3& diValues, const colorValues& colValues, bool flipTriangle)
 {
@@ -368,4 +370,18 @@ void Shapes::CreatePyramid(const Vector3& diValues, const colorValues& colValues
 	glDisable(GL_BLEND);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
+}
+
+void Shapes::CreateSphere(const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix)
+{
+	std::vector<cylindroidLoopValues> loops;
+
+	loops.push_back(cylindroidLoopValues(0.0f, 0.0f));
+	loops.push_back(cylindroidLoopValues(radius * 0.5f, 2.0f));
+	loops.push_back(cylindroidLoopValues(radius, 3.5f));
+	loops.push_back(cylindroidLoopValues(radius * 0.5f, 5.0f));
+	loops.push_back(cylindroidLoopValues(0.0f, 5.3f));
+
+	Cylindroid* sphere = new Cylindroid(8.0f, loops, viewProjectionMatrix, colValues);
+	sphere->draw();
 }
