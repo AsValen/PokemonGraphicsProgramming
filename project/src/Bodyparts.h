@@ -21,4 +21,6 @@ public :
 	void CreateRightLeg(const Matrix4& viewProjectionMatrix);
 
 	void CreateTail(const Matrix4& viewProjectionMatrix);
+
+	void CreateHair(const Matrix4& viewProjectionMatrix);
 };

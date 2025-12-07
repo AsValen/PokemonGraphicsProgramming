@@ -55,6 +55,7 @@ Cylindroid* leftLegCylindroid;
 Cylindroid* rightLegCylindroid;
 Cylindroid* leftArmCylindroid;
 Cylindroid* rightArmCylindroid;
+Cylindroid* hairCylindroid;
 
 void Bodyparts::CreateUpperTorso(const Matrix4& viewProjectionMatrix)
 {
@@ -466,4 +467,101 @@ void Bodyparts::CreateRightArm(const Matrix4& viewProjectionMatrix)
 	glLoadMatrixf(mvp.data);
 
 	shapes.CreateSphere(10, 2.0f, complimentColor, viewProjectionMatrix);
+}
+
+void Bodyparts::CreateHead(const Matrix4& viewProjectionMatrix)
+{
+	// CREATING NECK  -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform neck;
+	neck.setPosition(0.0f, 7.0f, 0.0f);
+	Matrix4 neckMatrix = neck.getMatrix();
+
+	Matrix4 mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix;
+	glLoadMatrixf(mvp.data);
+
+	shapes.CreateCylinder(cylinderValues(8, 1.0f, 1.0f, 1.0f), colorValues(mainColor.r, mainColor.g, mainColor.b, mainColor.a), false, false);
+
+	// CREATING HEAD -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform head;
+	head.setPosition(0.0f, 0.5f, 0.0f);
+	Matrix4 headMatrix = head.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix;
+	glLoadMatrixf(mvp.data);
+
+	shapes.CreateSphere(10, 4.5f, mainColor, viewProjectionMatrix);
+
+	// CREATING SNOUT -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform snout;
+	snout.setRotation(-90.0f, 0.0f, 0.0f);
+	snout.setPosition(0.0f, 3.0f, 7.0f);
+	Matrix4 snoutMatrix = snout.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix * snoutMatrix;
+	glLoadMatrixf(mvp.data);
+
+	shapes.CreateCylinder(cylinderValues(8, 2.0f, 1.0f, 5.0f), colorValues(mainColor.r, mainColor.g, mainColor.b, mainColor.a), false, true);
+
+	// CREATING LEFT EAR -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform leftEar;
+	leftEar.setPosition(-2.0f, 7.0f, -0.5f);
+	Matrix4 leftEarMatrix = leftEar.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix * leftEarMatrix;
+	glLoadMatrixf(mvp.data);
+
+	shapes.CreateCylinder(cylinderValues(8, 0.0f, 1.5f, 5.0f), colorValues(mainColor.r, mainColor.g, mainColor.b, mainColor.a), false, false);
+
+	// CREATING RIGHT EAR -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform rightEar;
+	rightEar.setPosition(2.0f, 7.0f, -0.5f);
+	Matrix4 rightEarMatrix = rightEar.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix * rightEarMatrix;
+	glLoadMatrixf(mvp.data);
+
+	shapes.CreateCylinder(cylinderValues(8, 0.0f, 1.5f, 5.0f), colorValues(mainColor.r, mainColor.g, mainColor.b, mainColor.a), false, false);
+
+	// CREATING HAIR -----------------------------------------------------------------------------------------------------------------------------
+
+	Transform hair;
+	hair.rotateXBy(105.0f);
+	hair.rotateYBy(180.0f);
+	hair.rotateZBy(-15.0f);
+	hair.setPosition(-1.5f, 7.0f, -2.5f);
+	Matrix4 hairMatrix = hair.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix * hairMatrix;
+	glLoadMatrixf(mvp.data);
+
+	CreateHair(viewProjectionMatrix);
+
+	hair.rotateYBy(30.0f);
+	//hair.rotateZBy(-30.0f);
+	hair.setPosition(-2.5f, 7.0f, -2.0f);
+	hairMatrix = hair.getMatrix();
+
+	mvp = viewProjectionMatrix * midUpperTorsoMatrix * neckMatrix * headMatrix * hairMatrix;
+	glLoadMatrixf(mvp.data);
+
+	CreateHair(viewProjectionMatrix);
+}
+
+void Bodyparts::CreateHair(const Matrix4& viewProjectionMatrix)
+{
+	std::vector<cylindroidLoopValues> loops;
+
+	loops.push_back(cylindroidLoopValues(0.5f, 0.0f, Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 0.0f, 0.0f)));
+	loops.push_back(cylindroidLoopValues(0.8f, 2.0f, Vector3(0.0f, 0.0f, 0.0f), Vector3(Oscillation(10.0f, speed, maxAngle), 0.0f, 0.0f)));
+	loops.push_back(cylindroidLoopValues(1.5f, 6.0f, Vector3(0.0f, 0.0f, 0.0f), Vector3(Oscillation(20.0f, speed, maxAngle), 0.0f, 0.0f)));
+	loops.push_back(cylindroidLoopValues(2.0f, 12.0f, Vector3(0.0f, 0.0f, 0.0f), Vector3(Oscillation(30.0f, speed, maxAngle), 0.0f, 0.0f)));
+	loops.push_back(cylindroidLoopValues(0.0f, 12.0f, Vector3(0.0f, 0.0f, 0.0f), Vector3(Oscillation(30.0f, speed, maxAngle), 0.0f, 0.0f)));
+
+	hairCylindroid = new Cylindroid(8.0f, loops, viewProjectionMatrix, complimentColor);
+	hairCylindroid->draw();
 }

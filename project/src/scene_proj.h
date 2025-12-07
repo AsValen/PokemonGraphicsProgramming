@@ -61,5 +61,6 @@ public:
 		bodyparts.CreateRightLeg(vpMatrix);
 		bodyparts.CreateLeftArm(vpMatrix);
 		bodyparts.CreateRightArm(vpMatrix);
+		bodyparts.CreateHead(vpMatrix);
 	}
 };

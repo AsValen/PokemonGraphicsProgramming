@@ -32,7 +32,7 @@ struct cylinderValues
 	float height;
 	float squash;
 
-	cylinderValues(int slices, float topRadius, float bottomRadius, float height, float squash) : slices(slices), topRadius(topRadius), bottomRadius(bottomRadius), height(height), squash(squash)
+	cylinderValues(int slices, float topRadius, float bottomRadius, float height, float squash = 1.0f) : slices(slices), topRadius(topRadius), bottomRadius(bottomRadius), height(height), squash(squash)
 	{
 	}
 };
