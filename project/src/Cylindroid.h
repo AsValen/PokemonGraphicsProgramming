@@ -85,6 +85,7 @@ private:
 				positions.push_back(Vector3(pWorld));	
 			}
 
+			// This is just for getting the avg position of the last loop
 			if (i == loops.size() - 1)
 			{
 				// the last loop (the one at the hand)
