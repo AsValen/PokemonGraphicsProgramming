@@ -22,5 +22,5 @@ public :
 
 	void CreatePyramid(const Vector3& diValues, const colorValues& colValues);
 
-	void CreateSphere(const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix);
+	void CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix);
 };

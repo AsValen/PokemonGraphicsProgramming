@@ -372,15 +372,20 @@ void Shapes::CreatePyramid(const Vector3& diValues, const colorValues& colValues
 	glDisableClientState(GL_COLOR_ARRAY);
 }
 
-void Shapes::CreateSphere(const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix)
+void Shapes::CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix)
 {
 	std::vector<cylindroidLoopValues> loops;
 
-	loops.push_back(cylindroidLoopValues(0.0f, 0.0f));
-	loops.push_back(cylindroidLoopValues(radius * 0.5f, 2.0f));
-	loops.push_back(cylindroidLoopValues(radius, 3.5f));
-	loops.push_back(cylindroidLoopValues(radius * 0.5f, 5.0f));
-	loops.push_back(cylindroidLoopValues(0.0f, 5.3f));
+	float R = radius;
+
+	for (int i = 0; i <= numLoops; ++i)
+	{
+		float t = float(i) / numLoops;        // 0 to 1
+		float y = t * 2.0f * R;               // 0 to 2*R (bottom to top)
+		float r = sqrt(R * R - (y - R) * (y - R)); // radius at this height
+
+		loops.push_back(cylindroidLoopValues(r, y));
+	}
 
 	Cylindroid* sphere = new Cylindroid(8.0f, loops, viewProjectionMatrix, colValues);
 	sphere->draw();

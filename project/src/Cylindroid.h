@@ -25,6 +25,8 @@ class Cylindroid
 {
 public:
 
+	Vector3 getEndPosition() const { return endPosition; }
+
 	Cylindroid(int segments, std::vector<cylindroidLoopValues> loops, Matrix4 viewProjectionMatrix, colorValues colour)
 	{
 		if (segments < 3) throw std::invalid_argument("segments < 3");
@@ -49,6 +51,7 @@ private:
 	std::vector<Vector3> positions;
 	std::vector<Vector2> texCoords;
 	std::vector<unsigned int> indices;
+	Vector3 endPosition;
 
 	void setup( int segments, std::vector<cylindroidLoopValues> loops, Matrix4 viewProjectionMatrix)
 	{
@@ -79,7 +82,23 @@ private:
 				pWorld.y += sliceData.offset.y;
 				pWorld.z += sliceData.offset.z;
 
-				positions.push_back(Vector3(pWorld));
+				positions.push_back(Vector3(pWorld));	
+			}
+
+			if (i == loops.size() - 1)
+			{
+				// the last loop (the one at the hand)
+
+				// compute "center" of the slice
+				// average of all 8 points
+				Vector3 avg(0, 0, 0);
+				for (int j = 0; j < segments; j++)
+				{
+					avg += positions[i * segments + j];
+				}
+				avg /= segments;
+
+				endPosition = avg;
 			}
 		}
 
@@ -110,7 +129,6 @@ private:
 				indices.push_back(idxNext);
 			}
 		}
-
 
 	}
 };
