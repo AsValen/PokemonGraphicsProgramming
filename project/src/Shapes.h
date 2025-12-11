@@ -12,15 +12,15 @@ public :
 
 	void CreateTriangle(const Vector3& diValues, const colorValues& colValues, bool flipTriangle = false);
 
-	void CreateSquare(const Vector3& diValues, const colorValues& colValues, Texture2D* texture);
+	void CreateSquare(const Vector3& diValues, const colorValues& colValues, Texture2D* texture = NULL);
 
-	void CreateDisk(const circleValues& cirValues, const colorValues& colValues, Texture2D* texture, bool flipDisk = false);
+	void CreateDisk(const circleValues& cirValues, const colorValues& colValues, Texture2D* texture = NULL, bool flipDisk = false);
 
-	void CreateCube(const Vector3& diValues, const colorValues& colValues);
+	void CreateCube(const Vector3& diValues, const colorValues& colValues, Texture2D* texture = NULL, const cubeFacesValues& cubeFaces = new cubeFacesValues);
 
-	void CreateCylinder(const cylinderValues& cyValues, const colorValues& colValues, bool enableTopDisk = true, bool enableBottomDisk = true);
+	void CreateCylinder(const cylinderValues& cyValues, const colorValues& colValues, bool enableTopDisk = true, bool enableBottomDisk = true, Texture2D* cylinderTexture = NULL, Texture2D* diskTexture = NULL);
 
-	void CreatePyramid(const Vector3& diValues, const colorValues& colValues);
+	void CreatePyramid(const Vector3& diValues, const colorValues& colValues, Texture2D* texture = NULL, bool bottomFace = true);
 
-	void CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix);
+	void CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix, Texture2D* texture = NULL);
 };

@@ -7,6 +7,8 @@
 #include "Cylindroid.h"
 #include "angle_util/matrix.h"
 
+Texture2D* texture;
+
 void Shapes::CreateTriangle(const Vector3& diValues, const colorValues& colValues, bool flipTriangle)
 {
 	float x = diValues.x;
@@ -50,27 +52,27 @@ void Shapes::CreateSquare(const Vector3& diValues, const colorValues& colValues,
 	float b = colValues.b;
 	float a = colValues.a;
 
-    if (x < 0 || y < 0 || z < 0) return;
+    if (x < 0.0f || y < 0.0f || z < 0.0f) return;
 
     std::vector<Vector3> position = {
-        Vector3(0.0f,  0.0f, z),
-        Vector3(x,  0.0f, z),
-        Vector3(x,  y, z),
-        Vector3(0.0f, y, z)
+		{0.0f,  0.0f, z},
+		{x,  0.0f, z},
+		{x,  y, z},
+		{0.0f, y, z}
     };
 
-    std::vector<Vector4> colour = {
-        Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a)
-    };
+	std::vector<Vector4> colour;
+
+	for (int i = 0; i < position.size(); i++)
+	{
+		colour.push_back(Vector4(r, g, b, a));
+	}
 
     std::vector<Vector2> texCoord = {
-        Vector2(0.0f, 0.0f),
-        Vector2(1.0f, 0.0f),
-        Vector2(1.0f, 1.0f),
-        Vector2(0.0f, 1.0f),
+		{0.0f, 0.0f},
+		{1.0f, 0.0f},
+		{1.0f, 1.0f},
+		{0.0f, 1.0f},
     };
 
     std::vector<unsigned int> indices = {
@@ -89,16 +91,15 @@ void Shapes::CreateSquare(const Vector3& diValues, const colorValues& colValues,
 
     if (texture != NULL)
     {
+		glEnable(GL_TEXTURE_2D);
         glBindTexture(GL_TEXTURE_2D, texture->getNativeHandle());
     }
 
-    glEnable(GL_ALPHA_TEST);
-    glAlphaFunc(GL_GREATER, 0.0f);
 
     glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
-    glDisable(GL_ALPHA_TEST);
     glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_COLOR_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -117,13 +118,14 @@ void Shapes::CreateDisk(const circleValues& cirValues, const colorValues& colVal
 	float b = colValues.b;
 	float a = colValues.a;
 
-	if (outRad <= 0 || inRad < 0 || slices < 8) return;
+	if (outRad <= 0.0f || inRad < 0.0f || slices < 8) return;
 	if (inRad >= outRad) return;
 
 	float anglePerSlice = 2 * M_PI / slices;
 
 	if (texture != NULL)
 	{
+		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, texture->getNativeHandle());
 	}
 
@@ -171,9 +173,11 @@ void Shapes::CreateDisk(const circleValues& cirValues, const colorValues& colVal
 	}
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
 }
 
-void Shapes::CreateCube(const Vector3& diValues, const colorValues& colValues)
+void Shapes::CreateCube(const Vector3& diValues, const colorValues& colValues, Texture2D* texture, const cubeFacesValues& cubeFaces )
 {
 	float x = diValues.x;
 	float y = diValues.y;
@@ -184,79 +188,120 @@ void Shapes::CreateCube(const Vector3& diValues, const colorValues& colValues)
 	float b = colValues.b;
 	float a = colValues.a;
 
-	if (x <= 0 || y <= 0 || z <= 0) return;
+	if (x <= 0.0f || y <= 0.0f || z <= 0.0f) return;
 
 	std::vector<Vector3> position = {
 
-		// bottom square position
-		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(x, 0.0f, 0.0f),
-		Vector3(x, 0.0f, -z),
-		Vector3(0.0f, 0.0f, -z),
+		// FRONT
+	   {0, 0, 0}, {x, 0, 0}, {x, y, 0}, {0, y, 0},
 
-		// top square position
-		Vector3(0.0f, y, 0.0f),
-		Vector3(x, y, 0.0f),
-		Vector3(x, y, -z),
-		Vector3(0.0f, y, -z)
+	   // BACK
+	   {x, 0, -z}, {0, 0, -z}, {0, y, -z}, {x, y, -z},
+
+	   // LEFT
+	   {0, 0, -z}, {0, 0, 0}, {0, y, 0}, {0, y, -z},
+
+	   // RIGHT
+	   {x, 0, 0}, {x, 0, -z}, {x, y, -z}, {x, y, 0},
+
+	   // TOP
+	   {0, y, 0}, {x, y, 0}, {x, y, -z}, {0, y, -z},
+
+	   // BOTTOM
+	   {0, 0, -z}, {x, 0, -z}, {x, 0, 0}, {0, 0, 0}
 	};
 
-	std::vector<Vector4> colour = {
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
+	std::vector<Vector4> colour;
 
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a)
+	for (int i = 0; i < position.size(); i++)
+	{
+		colour.push_back(Vector4(r, g, b, a));
+	}
+
+	std::vector<Vector2> texCoord = {
+		// FRONT 
+		{0,0}, {1,0}, {1,1}, {0,1}, 
+		// BACK 
+		{0,0}, {1,0}, {1,1}, {0,1}, 
+		// LEFT 
+		{0,0}, {1,0}, {1,1}, {0,1}, 
+		// RIGHT 
+		{0,0}, {1,0}, {1,1}, {0,1}, 
+		// TOP 
+		{0,0}, {1,0}, {1,1}, {0,1}, 
+		// BOTTOM 
+		{0,0}, {1,0}, {1,1}, {0,1},
 	};
 
-	std::vector<unsigned int> indices = {
-		// bottom square
-		3, 2, 1, 
-		1, 0, 3, 
+	std::vector<unsigned int> indices;
 
-		// front square
-		0, 1, 5,
-		5, 4, 0,
+	if (cubeFaces.front)
+	{
+		indices.insert(indices.end(), {
+			0,1,2,  2,3,0,
+		});
+	}
 
-		// back square
-		2, 3, 7,
-		7, 6, 2,
+	if (cubeFaces.back)
+	{
+		indices.insert(indices.end(), {
+			4,5,6,  6,7,4,
+		});
+	}
 
-		// left square
-		3, 0, 4,
-		4, 7, 3,
+	if (cubeFaces.left)
+	{
+		indices.insert(indices.end(), {
+			8,9,10, 10,11,8,
+		});
+	}
 
-		// right square
-		1, 2, 6,
-		6, 5, 1,
+	if (cubeFaces.right)
+	{
+		indices.insert(indices.end(), {
+			12,13,14, 14,15,12,
+		});
+	}
 
-		// top square
-		4, 5, 6,
-		6, 7, 4
+	if (cubeFaces.top)
+	{
+		indices.insert(indices.end(), {
+			16,17,18, 18,19,16,
+		});
+	}
 
-	};
+	if (cubeFaces.bottom)
+	{
+		indices.insert(indices.end(), {
+			 20,21,22, 22,23,20
+		});
+	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glVertexPointer(3, GL_FLOAT, 0, position.data());
 	glColorPointer(4, GL_FLOAT, 0, colour.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, texCoord.data());
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (texture != NULL)
+	{
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture->getNativeHandle());
+	}
 
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
-	glDisable(GL_BLEND);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shapes::CreateCylinder(const cylinderValues& cyValues, const colorValues& colValues, bool enableTopDisk, bool enableBottomDisk)
+void Shapes::CreateCylinder(const cylinderValues& cyValues, const colorValues& colValues, bool enableTopDisk, bool enableBottomDisk, Texture2D* cylinderTexture, Texture2D* diskTexture)
 {
 	float topRadius = cyValues.topRadius;
 	float bottomRadius = cyValues.bottomRadius;
@@ -274,6 +319,12 @@ void Shapes::CreateCylinder(const cylinderValues& cyValues, const colorValues& c
 
 	float anglePerSlice = 2 * M_PI / slices;
 
+	if (cylinderTexture != NULL)
+	{
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, cylinderTexture->getNativeHandle());
+	}
+
 	glBegin(GL_TRIANGLE_STRIP);
 	glColor4f(r, g, b, a);
 
@@ -281,30 +332,44 @@ void Shapes::CreateCylinder(const cylinderValues& cyValues, const colorValues& c
 	{
 		float theta = anglePerSlice * i;
 
-		float xBot = cos(theta) * bottomRadius;
+		float xBot = (cos(theta) * bottomRadius);
 		float zBot = (sin(theta) * bottomRadius) * squash;
+
+		float u = (float)i / slices;
+		float vBot = 0.0f; 
+		float vTop = 1.0f; 
+
+		glTexCoord2f(u, vBot);
 		glVertex3f(xBot, 0, zBot);
 
-		float xTop = cos(theta) * topRadius;
+		float xTop = (cos(theta) * topRadius);
 		float zTop = (sin(theta) * topRadius) * squash;
+		glTexCoord2f(u, vTop);
 		glVertex3f(xTop, height, zTop);
 	}
 	glEnd();
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
+	if(diskTexture == NULL)
+	{
+		diskTexture = cylinderTexture;
+	}
 
 	// Bottom disk
 	if (bottomRadius != 0 && enableBottomDisk)
 	{
-		CreateDisk(circleValues(slices, bottomRadius, 0, 0.0f, squash), colValues, NULL);
+		CreateDisk(circleValues(slices, bottomRadius, 0, 0.0f, squash), colValues, diskTexture);
 	}
 
 	// Top disk
 	if (topRadius != 0 && enableTopDisk)
 	{
-		CreateDisk(circleValues(slices, topRadius, 0, height, squash), colValues, NULL, true);
+		CreateDisk(circleValues(slices, topRadius, 0, height, squash), colValues, diskTexture, true);
 	}
 }
 
-void Shapes::CreatePyramid(const Vector3& diValues, const colorValues& colValues)
+void Shapes::CreatePyramid(const Vector3& diValues, const colorValues& colValues, Texture2D* texture, bool bottomFace)
 {
 	float x = diValues.x;
 	float y = diValues.y;
@@ -319,60 +384,95 @@ void Shapes::CreatePyramid(const Vector3& diValues, const colorValues& colValues
 
 	std::vector<Vector3> position = {
 
-		// bottom square position
-		Vector3(0.0f, 0.0f, 0.0f),
-		Vector3(x, 0.0f, 0.0f),
-		Vector3(x, 0.0f, -z),
-		Vector3(0.0f, 0.0f, -z),
+		// Side 1 (front)
+		{0.0f, 0.0f, 0.0f},
+		{x, 0.0f, 0.0f},
+		{x * 0.5f, y, -z * 0.5f},
 
-		// top tip
-		Vector3(x * 0.5f, y, -z * 0.5f)
+		// Side 2 (right)
+		{x, 0.0f, 0.0f},
+		{x, 0.0f, -z},
+		{x * 0.5f, y, -z * 0.5f},
+
+		// Side 3 (back)
+		{x, 0.0f, -z},
+		{0.0f, 0.0f, -z},
+		{x * 0.5f, y, -z * 0.5f},
+
+		// Side 4 (left)
+		{0.0f, 0.0f, -z},
+		{0.0f, 0.0f, 0.0f},
+		{x * 0.5f, y, -z * 0.5f},
+
+		// Bottom face (optional)
+		{0.0f, 0.0f, 0.0f},
+		{x, 0.0f, 0.0f},
+		{x, 0.0f, -z},
+		{0.0f, 0.0f, -z}
 	};
 
-	std::vector<Vector4> colour = {
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
-		Vector4(r, g, b, a),
+	std::vector<Vector4> colour;
 
-		Vector4(r, g, b, a)
+	for (int i = 0; i < position.size(); i++)
+	{
+		colour.push_back(Vector4(r, g, b, a));
+	}
+
+	std::vector<Vector2> texCoord = {
+		// front
+		{0,0}, {1,0}, {0.5f,1},
+		// right
+		{0,0}, {1,0}, {0.5f,1},
+		// back
+		{0,0}, {1,0}, {0.5f,1},
+		// left
+		{0,0}, {1,0}, {0.5f,1},
+		// bottom
+		{0,0}, {1,0}, {1,1}, {0,1}
 	};
 
 	std::vector<unsigned int> indices = {
-		// bottom square
-		3, 2, 1,
-		1, 0, 3,
-
-		// front face
-		0, 1, 4,
-
-		// back face
-		2, 3, 4,
-
-		// left face
-		3, 0, 4,
-
-		// right face
-		1, 2, 4
+		// sides
+		0,1,2,     // front
+		3,4,5,     // right
+		6,7,8,     // back
+		9,10,11,   // left
 	};
+
+	// bottom face (optional)
+	if (bottomFace)
+	{
+		indices.insert(indices.end(), {
+			15,14,13,  
+			13,12,15    
+		});
+	}
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_COLOR_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glVertexPointer(3, GL_FLOAT, 0, position.data());
 	glColorPointer(4, GL_FLOAT, 0, colour.data());
+	glTexCoordPointer(2, GL_FLOAT, 0, texCoord.data());
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	if (texture != NULL)
+	{
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, texture->getNativeHandle());
+	}
 
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
 
-	glDisable(GL_BLEND);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_TEXTURE_2D);
+
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 }
 
-void Shapes::CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix)
+void Shapes::CreateSphere(const int& numLoops, const float& radius, const colorValues& colValues, const Matrix4& viewProjectionMatrix, Texture2D* texture)
 {
 	std::vector<cylindroidLoopValues> loops;
 
@@ -387,6 +487,6 @@ void Shapes::CreateSphere(const int& numLoops, const float& radius, const colorV
 		loops.push_back(cylindroidLoopValues(r, y));
 	}
 
-	Cylindroid* sphere = new Cylindroid(8.0f, loops, viewProjectionMatrix, colValues);
+	Cylindroid* sphere = new Cylindroid(8.0f, loops, viewProjectionMatrix, colValues, texture);
 	sphere->draw();
 }

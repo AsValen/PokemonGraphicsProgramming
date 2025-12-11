@@ -36,3 +36,16 @@ struct cylinderValues
 	{
 	}
 };
+
+struct cubeFacesValues
+{
+	bool front;
+	bool back;
+	bool left;
+	bool right;
+	bool top;
+	bool bottom;
+	cubeFacesValues(bool front = true, bool back = true, bool left = true, bool right = true, bool top = true, bool bottom = true) : front(front), back(back), left(left), right(right), top(top), bottom(bottom)
+	{
+	}
+};	

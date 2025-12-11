@@ -7,6 +7,9 @@
 #include "Transform.h"
 #include "MeshValues.h"
 
+#include <iostream>
+using namespace std;
+
 
 struct cylindroidLoopValues
 {
@@ -27,11 +30,12 @@ public:
 
 	Vector3 getEndPosition() const { return endPosition; }
 
-	Cylindroid(int segments, std::vector<cylindroidLoopValues> loops, Matrix4 viewProjectionMatrix, colorValues colour)
+	Cylindroid(int segments, std::vector<cylindroidLoopValues> loops, Matrix4 viewProjectionMatrix, colorValues colour, Texture2D* texture = NULL)
 	{
 		if (segments < 3) throw std::invalid_argument("segments < 3");
 		if (loops.size() < 1) throw std::invalid_argument("loop size < 1");
 		meshColour = colour;
+		meshTexture = texture;
 		setup(segments, loops, viewProjectionMatrix);
 	}
 
@@ -39,16 +43,36 @@ public:
 	{
 		glColor4f(meshColour.r, meshColour.g, meshColour.b, meshColour.a);
 		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_COLOR_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
 		glPointSize(8.0f);
 		glVertexPointer(3, GL_FLOAT, 0, positions.data());
+		glColorPointer(4, GL_FLOAT, 0, colours.data());
+		glTexCoordPointer(2, GL_FLOAT, 0, texCoords.data());
+
+		if (meshTexture != NULL)
+		{
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, meshTexture->getNativeHandle());
+		}
+
 		glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, indices.data());
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glDisable(GL_TEXTURE_2D);
+
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_COLOR_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	}
 
 private:
 
 	colorValues meshColour;
+	Texture2D* meshTexture;
 	std::vector<Vector3> positions;
+	std::vector<colorValues> colours;
 	std::vector<Vector2> texCoords;
 	std::vector<unsigned int> indices;
 	Vector3 endPosition;
@@ -83,6 +107,25 @@ private:
 				pWorld.z += sliceData.offset.z;
 
 				positions.push_back(Vector3(pWorld));	
+
+				//if (j == 0)
+				//{
+				//	colours.push_back(colorValues(1.0f, 1.0f, 1.0f, 1.0f));
+				//}
+				//else {
+				//	colours.push_back(colorValues(0.5f, 0.5f, 0.5f, 1.0f));
+				//}
+				colours.push_back(colorValues(meshColour.r, meshColour.g, meshColour.b, meshColour.a));
+
+
+				if(meshTexture != NULL)
+				{
+					float u = (float)j / (segments - 1);
+					//std::cout << "u: " << u << std::endl;
+					float v = (float)i / (loops.size() - 1);
+					//std::cout << "v: " << v << std::endl;
+					texCoords.push_back(Vector2(u, v));
+				}
 			}
 
 			// This is just for getting the avg position of the last loop
