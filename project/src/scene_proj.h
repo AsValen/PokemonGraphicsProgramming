@@ -56,7 +56,7 @@ public:
 		TextureConfig textureCfg(TextureWrapMode::CLAMP, TextureWrapMode::CLAMP, TextureFilterMode::NEAREST, true);
 		groundTexture = TextureUtils::loadFromFile("../assets/GroundTexture.jpg", textureCfg);
 		grassTexture = TextureUtils::loadFromFile("../assets/GrassTexture.png", textureCfg);
-		rockTexture = TextureUtils::loadFromFile("../assets/RockTexture.jpg", textureCfg);
+		rockTexture = TextureUtils::loadFromFile("../assets/RockTexture.png", textureCfg);
 		crystalTexture = TextureUtils::loadFromFile("../assets/CrystalTexture.jpg", textureCfg);
 
 		TextureConfig characterCfg(TextureWrapMode::CLAMP, TextureWrapMode::CLAMP, TextureFilterMode::LINEAR, true);
